@@ -3,15 +3,33 @@
 ## Como abrir o site
 
 Os vídeos **não carregam** abrindo o `index.html` com dois cliques (restrição do navegador).
-Rode um servidor local — na pasta do projeto:
+Rode o servidor incluído — na pasta do projeto:
 
 ```bash
-python -m http.server 8000
+python dev-server.py
 ```
 
-Depois acesse `http://localhost:8000` no navegador.
+Depois acesse `http://localhost:8899`.
 
-Ao publicar (Vercel, Netlify, hospedagem comum), basta enviar a pasta inteira — funciona direto.
+> Use `dev-server.py`, **não** `python -m http.server`. O servidor embutido do Python
+> não implementa HTTP Range, e sem isso o avanço/retrocesso do vídeo não funciona.
+> Na Vercel o Range funciona normalmente — é só uma limitação do teste local.
+
+## Atalhos do player
+
+| Tecla | Ação |
+|---|---|
+| `Espaço` / `K` | play / pause |
+| `←` `→` | −5s / +5s |
+| `J` `L` | −10s / +10s |
+| `↑` `↓` | volume |
+| `M` | mudo |
+| `F` | tela cheia |
+| `0`–`9` | pular para 0%–90% |
+| `Esc` | fechar |
+
+Com o modal aberto, `←` `→` também trocam de projeto quando o foco não está no player.
+O volume escolhido fica lembrado entre visitas.
 
 ## Arquivos
 
