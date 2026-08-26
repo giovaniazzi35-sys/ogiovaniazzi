@@ -6,10 +6,29 @@
 
 /* -------- CONTATOS (edite os links) -------- */
 const CONTATO = {
-  whatsapp:  'https://wa.me/5599999999999',              // ► seu número (formato internacional, sem símbolos)
-  instagram: 'https://instagram.com/ogiovaniazzi',        // ► seu Instagram
-  email:     'contato@ogiovaniazzi.com'                   // ► seu e-mail
+  // 55 (Brasil) + 11 (DDD) + número
+  whatsapp:  'https://wa.me/5511970799985',
+  instagram: 'https://instagram.com/giovaniazzi1',
+  email:     ''                                           // ► preencha para exibir o link de e-mail no rodapé
 };
+
+/* Mensagem padrão ao abrir o WhatsApp (deixe '' para abrir vazio) */
+const WHATSAPP_MSG = 'Olá! Vi seu portfólio e gostaria de falar sobre um projeto.';
+
+/* -------- MENSAGENS RÁPIDAS do botão flutuante --------
+   Aparecem acima do botão do WhatsApp. Edite, adicione ou remova à vontade.
+   'id' é opcional: serve para um botão da página abrir direto essa mensagem
+   (ex.: <a class="js-wa" data-msg="orcamento">). */
+const WHATSAPP_ACOES = [
+  { id: 'orcamento', icone: '💰', label: 'Solicitar orçamento',
+    msg: 'Olá! Gostaria de solicitar um orçamento para um vídeo.' },
+  { id: 'contratar', icone: '🎬', label: 'Quero contratar um serviço',
+    msg: 'Olá! Quero contratar seu serviço de produção de vídeo. Podemos conversar?' },
+  { id: 'data',      icone: '📅', label: 'Consultar uma data',
+    msg: 'Olá! Gostaria de saber sua disponibilidade para uma data específica.' },
+  { id: 'duvida',    icone: '💬', label: 'Tirar uma dúvida',
+    msg: 'Olá! Tenho uma dúvida sobre o seu trabalho.' }
+];
 
 /* -------- CATEGORIAS (edite / adicione / remova livremente) -------- */
 const CATEGORIAS = ['Todos', 'Filmes', 'Eventos', 'Marcas', 'Conteúdo'];
@@ -330,18 +349,27 @@ function saveVolume(v) { try { localStorage.setItem('og_vol', v); } catch (e) {}
   el.muted = true;            // alguns navegadores ignoram o atributo; sem isto o autoplay é bloqueado
   el.src = enc(HERO_BG.src);
 
-  const tryPlay = () => el.play().catch(() => {});
+  el.loop = true;             // loop infinito
+  let onScreen = true;
+  const tryPlay = () => { if (onScreen && !document.hidden) el.play().catch(() => {}); };
+
   // play() logo após definir o src é abortado pelo carregamento — tentamos de novo quando dá
   el.addEventListener('canplay', tryPlay, { once: true });
   el.addEventListener('loadeddata', tryPlay, { once: true });
   tryPlay();
+
+  // rede de segurança: se por algum motivo o loop nativo falhar, reinicia na mão
+  el.addEventListener('ended', () => { el.currentTime = 0; tryPlay(); });
+  // o navegador pausa vídeos em abas em segundo plano — retomamos ao voltar
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
   // último recurso: retomar na primeira interação do visitante
   document.addEventListener('pointerdown', tryPlay, { once: true });
 
   // economiza CPU/bateria enquanto o hero está fora da tela
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) tryPlay(); else el.pause();
+      onScreen = e.isIntersecting;
+      if (onScreen) tryPlay(); else el.pause();
     }, { threshold: 0.05 }).observe(el);
   }
 })();
@@ -410,7 +438,12 @@ function renderGrid(filter = 'Todos') {
   grid.innerHTML = '';
   ordered()
     .filter(v => filter === 'Todos' || v.category === filter)
-    .forEach(v => grid.appendChild(makeCard(v)));
+    .forEach((v, i) => {
+      const card = makeCard(v);
+      card.classList.add('reveal');
+      card.dataset.delay = i * 90;      // entram em cascata
+      grid.appendChild(card);
+    });
 }
 
 /* ============================ FILTROS ============================ */
@@ -537,12 +570,70 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ============================ CONTATOS ============================ */
+const waURL = (msg) => CONTATO.whatsapp + (msg ? '?text=' + encodeURIComponent(msg) : '');
+
 (function initContacts() {
+  const padrao = waURL(WHATSAPP_MSG);
   const set = (id, href) => { const el = document.getElementById(id); if (el) el.href = href; };
-  set('ctaWhatsapp', CONTATO.whatsapp);
+
+  set('ctaWhatsapp', padrao);
+  set('footWhatsapp', padrao);
   set('footInstagram', CONTATO.instagram);
-  set('footWhatsapp', CONTATO.whatsapp);
-  set('footEmail', 'mailto:' + CONTATO.email);
+
+  // qualquer link com .js-wa vira um atalho de WhatsApp;
+  // data-msg="<id>" escolhe uma das WHATSAPP_ACOES
+  document.querySelectorAll('.js-wa').forEach(el => {
+    const acao = WHATSAPP_ACOES.find(a => a.id === el.dataset.msg);
+    el.href = waURL(acao ? acao.msg : WHATSAPP_MSG);
+    el.target = '_blank';
+    el.rel = 'noopener';
+  });
+
+  // sem e-mail definido, o link é removido em vez de virar um "mailto:" quebrado
+  const mail = document.getElementById('footEmail');
+  if (mail) {
+    if (CONTATO.email) mail.href = 'mailto:' + CONTATO.email;
+    else mail.remove();
+  }
+})();
+
+/* ---- botão flutuante + mensagens rápidas ---- */
+(function initFloatingWa() {
+  const dock = document.getElementById('waDock');
+  const btn  = document.getElementById('waFloat');
+  const quick = document.getElementById('waQuick');
+  if (!dock || !btn || !quick) return;
+
+  // monta as mensagens rápidas
+  WHATSAPP_ACOES.forEach((a, i) => {
+    const link = document.createElement('a');
+    link.className = 'wa-quick__item';
+    link.href = waURL(a.msg);
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('role', 'menuitem');
+    link.style.transitionDelay = (i * 45) + 'ms';
+    link.innerHTML = `<span class="wa-quick__ico" aria-hidden="true">${a.icone || '💬'}</span><span>${a.label}</span>`;
+    quick.appendChild(link);
+  });
+
+  const setOpen = (open) => {
+    dock.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', open);
+  };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!dock.classList.contains('is-open')); });
+  document.addEventListener('click', (e) => { if (!dock.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  quick.addEventListener('click', () => setOpen(false));
+
+  // aparece depois que o visitante começa a rolar
+  const onScroll = () => {
+    const show = window.scrollY > window.innerHeight * 0.6;
+    dock.classList.toggle('is-visible', show);
+    if (!show) setOpen(false);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 
 /* ============================ NAV / SCROLL / MOBILE ============================ */
@@ -574,18 +665,78 @@ document.querySelectorAll('[data-scroll]').forEach(a => {
   });
 });
 
-/* ============================ REVEAL ON SCROLL ============================ */
+/* ============================ ANIMAÇÕES ============================ */
+const semAnimacao = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* reveal ao rolar — respeita data-delay para escalonar */
 let io;
 function observeReveals() {
   if (!io) {
     io = new IntersectionObserver((entries) => {
       entries.forEach(en => {
-        if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+        if (!en.isIntersecting) return;
+        const d = en.target.dataset.delay;
+        if (d) en.target.style.transitionDelay = d + 'ms';
+        en.target.classList.add('is-visible');
+        io.unobserve(en.target);
       });
     }, { threshold: 0.14 });
   }
   document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => io.observe(el));
 }
+
+/* títulos que entram palavra a palavra */
+(function splitTitles() {
+  if (semAnimacao) return;
+  document.querySelectorAll('[data-split]').forEach(el => {
+    const palavras = el.textContent.trim().split(/\s+/);
+    el.innerHTML = palavras
+      .map((p, i) => `<span class="word"><span style="transition-delay:${i * 70}ms">${p}</span></span>`)
+      .join(' ');
+    el.classList.add('split');
+    new IntersectionObserver(([e], obs) => {
+      if (e.isIntersecting) { el.classList.add('is-in'); obs.disconnect(); }
+    }, { threshold: 0.3 }).observe(el);
+  });
+})();
+
+/* parallax discreto no vídeo do hero */
+(function heroParallax() {
+  if (semAnimacao) return;
+  const bg = document.querySelector('.hero__bg');
+  const content = document.querySelector('.hero__content');
+  if (!bg) return;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (y < window.innerHeight * 1.2) {
+        bg.style.transform = `translate3d(0, ${y * 0.28}px, 0) scale(1.06)`;
+        if (content) {
+          content.style.transform = `translate3d(0, ${y * 0.12}px, 0)`;
+          content.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.75));
+        }
+      }
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+
+/* barra fina de progresso de leitura */
+(function scrollProgress() {
+  const bar = document.createElement('div');
+  bar.className = 'progress';
+  document.body.appendChild(bar);
+  const upd = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+  };
+  window.addEventListener('scroll', upd, { passive: true });
+  window.addEventListener('resize', upd);
+  upd();
+})();
 
 /* ============================ INIT ============================ */
 document.getElementById('year').textContent = new Date().getFullYear();

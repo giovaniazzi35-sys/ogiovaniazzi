@@ -54,8 +54,15 @@
       <p class="hero__eyebrow">Direção · Produção · Edição</p>
       <h1 class="hero__title">ogiovaniazzi</h1>
       <p class="hero__tagline">Filmes que transformam momentos em memória.</p>
-      <p class="hero__sub">Uma abordagem cinematográfica para contar histórias reais — do primeiro quadro ao corte final.</p>
-      <a href="#contato" class="btn btn--light" data-scroll>Vamos criar juntos</a>
+      <p class="hero__sub">
+        O que você viveu merece mais do que ser lembrado de memória.
+        Transformo o seu momento em um filme que emociona toda vez que for assistido.
+      </p>
+      <div class="hero__actions">
+        <a href="#" class="btn btn--light js-wa">Solicitar orçamento</a>
+        <a href="#projetos" class="btn btn--ghost" data-scroll>Ver projetos</a>
+      </div>
+      <p class="hero__note">Resposta no mesmo dia pelo WhatsApp</p>
     </div>
 
     <div class="hero__scroll" aria-hidden="true">
@@ -68,10 +75,10 @@
   <section class="section section--light" id="projetos">
     <div class="container">
       <header class="section__head reveal">
-        <h2 class="section__title">Projetos em Movimento</h2>
+        <h2 class="section__title" data-split>Projetos em Movimento</h2>
         <p class="section__desc">
-          Uma seleção de trabalhos em vídeo — diferentes estilos, histórias e experiências,
-          reunidos por um mesmo olhar cinematográfico.
+          Estilos diferentes, histórias diferentes — o mesmo cuidado em cada quadro.
+          Veja o tipo de resultado que o seu projeto pode ter.
         </p>
       </header>
 
@@ -80,6 +87,12 @@
 
       <!-- Grade de vídeos (gerada a partir de VIDEOS em script.js) -->
       <div class="grid" id="projectGrid"></div>
+
+      <!-- CTA intermediária -->
+      <div class="inline-cta reveal">
+        <p class="inline-cta__text">Imagine o seu projeto aqui.</p>
+        <a href="#" class="btn btn--dark js-wa">Quero um vídeo assim</a>
+      </div>
     </div>
   </section>
 
@@ -97,14 +110,19 @@
   <section class="section section--dark" id="destaque">
     <div class="container">
       <header class="section__head reveal">
-        <h2 class="section__title section__title--light">Em Destaque</h2>
+        <h2 class="section__title section__title--light" data-split>Em Destaque</h2>
         <p class="section__desc section__desc--light">
-          Os trabalhos apresentados em maior escala — pensados para serem vistos como no cinema.
+          Assista em tela cheia. É assim que o seu filme vai ser visto por quem importa.
         </p>
       </header>
 
       <!-- Vídeos em destaque (gerados a partir de VIDEOS com featured:true) -->
       <div class="featured" id="featuredList"></div>
+
+      <div class="inline-cta inline-cta--dark reveal">
+        <p class="inline-cta__text">Pronto para gravar o seu?</p>
+        <a href="#" class="btn btn--light js-wa">Falar sobre meu projeto</a>
+      </div>
     </div>
   </section>
 
@@ -112,39 +130,47 @@
   <section class="section section--light" id="sobre">
     <div class="container">
       <header class="section__head reveal">
-        <h2 class="section__title">Sobre o processo</h2>
+        <h2 class="section__title" data-split>Sobre o processo</h2>
         <p class="section__desc">
-          <!-- EDITE: apresentação pessoal do ogiovaniazzi -->
-          Espaço reservado para a sua apresentação. Descreva aqui, com suas próprias palavras,
-          a forma como você enxerga e constrói cada projeto.
+          <!-- EDITE: troque por sua apresentação pessoal -->
+          Você não precisa entender de cinema para ter um filme bem feito.
+          Precisa apenas contar o que quer registrar — o resto é comigo, em três etapas.
         </p>
       </header>
 
-      <div class="process reveal">
-        <article class="process__item">
+      <div class="process">
+        <article class="process__item reveal" data-delay="0">
           <span class="process__num">01</span>
           <h3 class="process__title">Direção</h3>
           <p class="process__text">
             <!-- EDITE -->
-            Condução criativa de cada história — do conceito à composição de cada quadro.
+            Antes de gravar, a gente conversa. Entendo o que você quer transmitir
+            e desenho cada cena para que a mensagem chegue.
           </p>
         </article>
-        <article class="process__item">
+        <article class="process__item reveal" data-delay="120">
           <span class="process__num">02</span>
           <h3 class="process__title">Produção</h3>
           <p class="process__text">
             <!-- EDITE -->
-            Planejamento e execução cuidadosos para que a ideia aconteça do jeito certo.
+            No dia, você só precisa estar presente. Equipamento, luz e enquadramento
+            já estão resolvidos antes de você chegar.
           </p>
         </article>
-        <article class="process__item">
+        <article class="process__item reveal" data-delay="240">
           <span class="process__num">03</span>
           <h3 class="process__title">Edição</h3>
           <p class="process__text">
             <!-- EDITE -->
-            Ritmo, cor e som trabalhados até que a emoção final apareça na tela.
+            Ritmo, cor e som ajustados até a primeira exibição arrepiar.
+            Você acompanha e aprova antes da entrega final.
           </p>
         </article>
+      </div>
+
+      <div class="inline-cta reveal">
+        <p class="inline-cta__text">Vamos começar pela conversa.</p>
+        <a href="#" class="btn btn--dark js-wa">Chamar no WhatsApp</a>
       </div>
     </div>
   </section>
@@ -153,8 +179,15 @@
   <section class="cta section--dark" id="contato">
     <div class="container cta__inner reveal">
       <h2 class="cta__title">Vamos criar algo que<br />vale a pena lembrar.</h2>
-      <p class="cta__text">Conte sua história. Cuido de cada etapa para transformá-la em imagem.</p>
-      <a href="#" class="btn btn--light btn--lg" id="ctaWhatsapp">Fale com o ogiovaniazzi</a>
+      <p class="cta__text">
+        Datas boas não voltam. Me chame agora e vamos combinar
+        como registrar a sua do jeito certo.
+      </p>
+      <div class="cta__actions">
+        <a href="#" class="btn btn--light btn--lg" id="ctaWhatsapp">Fale com o ogiovaniazzi</a>
+        <a href="#" class="btn btn--ghost btn--lg js-wa" data-msg="orcamento">Pedir orçamento</a>
+      </div>
+      <p class="cta__note">Sem compromisso — a conversa começa com você contando a ideia.</p>
     </div>
   </section>
 
@@ -170,6 +203,24 @@
       <p class="footer__copy">© <span id="year"></span> ogiovaniazzi</p>
     </div>
   </footer>
+
+  <!-- ============================ BOTÃO FLUTUANTE DE WHATSAPP ============================ -->
+  <div class="wa-dock" id="waDock">
+    <!-- mensagens rápidas (o conteúdo vem de WHATSAPP_ACOES no script.js) -->
+    <div class="wa-quick" id="waQuick" role="menu" aria-label="Mensagens rápidas"></div>
+
+    <button class="wa" id="waFloat" type="button"
+            aria-label="Abrir opções de contato no WhatsApp"
+            aria-expanded="false" aria-controls="waQuick">
+    <span class="wa__ring" aria-hidden="true"></span>
+    <span class="wa__icon" aria-hidden="true">
+      <svg viewBox="0 0 32 32">
+        <path d="M16.04 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.6 4.46 1.73 6.4L3.2 28.8l6.56-1.72a12.75 12.75 0 0 0 6.28 1.6h.01c7.05 0 12.79-5.74 12.79-12.8 0-3.42-1.33-6.63-3.75-9.05a12.7 12.7 0 0 0-9.05-3.63zm0 23.31h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-4.02 1.05 1.07-3.92-.25-.4a10.61 10.61 0 0 1-1.63-5.67c0-5.87 4.78-10.64 10.64-10.64 2.84 0 5.51 1.11 7.52 3.12a10.57 10.57 0 0 1 3.11 7.53c0 5.87-4.77 10.64-10.64 10.64zm5.84-7.97c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.89-1.78-2.21-.19-.32-.02-.5.14-.66.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.72-.98-2.35-.26-.62-.52-.54-.71-.55l-.61-.01c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.65s1.14 3.08 1.3 3.29c.16.21 2.24 3.42 5.43 4.8.76.33 1.35.52 1.81.67.76.24 1.45.21 2 .13.61-.09 1.89-.77 2.15-1.52.27-.75.27-1.38.19-1.52-.08-.13-.29-.21-.61-.37z"/>
+      </svg>
+    </span>
+      <span class="wa__label">Fale comigo</span>
+    </button>
+  </div>
 
   <!-- ============================ MODAL / PLAYER CINEMATOGRÁFICO ============================ -->
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
