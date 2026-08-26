@@ -68,13 +68,34 @@ Tudo o que muda com frequência está no topo do `script.js`.
 
 ```js
 const CONTATO = {
-  whatsapp:  'https://wa.me/5599999999999',   // ← seu número real
-  instagram: 'https://instagram.com/ogiovaniazzi',
-  email:     'contato@ogiovaniazzi.com'
+  whatsapp:  'https://wa.me/5511970799985',
+  instagram: 'https://instagram.com/giovaniazzi1',
+  email:     ''     // vazio = o link de e-mail nem aparece no rodapé
 };
 ```
 
-> ⚠️ Os três estão com **valores de exemplo**. Troque antes de publicar.
+Para exibir o e-mail no rodapé, basta preencher o campo `email`.
+
+### 1b. Mensagens rápidas do botão do WhatsApp
+
+O botão verde flutuante abre uma lista de mensagens prontas. Edite em `WHATSAPP_ACOES`:
+
+```js
+const WHATSAPP_ACOES = [
+  { id: 'orcamento', icone: '💰', label: 'Solicitar orçamento',
+    msg: 'Olá! Gostaria de solicitar um orçamento para um vídeo.' },
+  // adicione, remova ou reordene à vontade
+];
+```
+
+O `id` é opcional e serve para um botão da página abrir direto aquela mensagem:
+
+```html
+<a class="js-wa" data-msg="orcamento">Pedir orçamento</a>
+```
+
+Qualquer link com a classe `js-wa` vira automaticamente um atalho de WhatsApp.
+Sem `data-msg`, usa a mensagem padrão de `WHATSAPP_MSG`.
 
 ### 2. Categorias
 
@@ -151,7 +172,11 @@ sempre preservada por inteiro.
 
 ## Ainda pendente
 
-- [ ] Trocar WhatsApp, Instagram e e-mail pelos reais
 - [ ] Renomear os projetos 002–005 (hoje com nomes provisórios)
-- [ ] Escrever o texto de "Sobre o processo"
-- [ ] Revisar as categorias atribuídas a cada vídeo
+- [ ] Revisar as categorias atribuídas a cada vídeo (foram um chute inicial)
+- [ ] Revisar os textos de "Sobre o processo" — são genéricos, escritos
+      sem conhecer o seu processo real. Troque pelas suas palavras.
+- [ ] Definir um e-mail de contato, se quiser exibi-lo
+
+> ⚠️ Os textos do site falam em "resposta no mesmo dia". Ajuste ou remova
+> essa frase no `index.html` se não for o seu compromisso real.
