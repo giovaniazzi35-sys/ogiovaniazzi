@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "alias": ["avirafilms.vercel.app"],
   "headers": [
     {
       "source": "/videos/(.*)",
