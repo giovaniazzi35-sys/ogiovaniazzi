@@ -1,0 +1,10 @@
+# Arquivos originais (masters) — só as versões em videos/ vão para a web
+/*.mp4
+/*.MP4
+/*.mov
+/*.MOV
+
+# Ferramentas de desenvolvimento
+dev-server.py
+build-videos.sh
+.claude/
