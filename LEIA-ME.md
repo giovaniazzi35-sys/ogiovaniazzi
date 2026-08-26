@@ -31,6 +31,27 @@ Depois acesse `http://localhost:8899`.
 Com o modal aberto, `←` `→` também trocam de projeto quando o foco não está no player.
 O volume escolhido fica lembrado entre visitas.
 
+## Publicar uma atualização
+
+O site está no ar em **https://ogiovaniazzi.vercel.app**
+
+Depois de editar qualquer coisa, rode na pasta do projeto:
+
+```bash
+vercel deploy --prod --yes
+```
+
+Para guardar a alteração também no GitHub:
+
+```bash
+git add -A && git commit -m "descreva a mudança" && git push
+```
+
+> O deploy é manual porque a Vercel está ligada à conta GitHub `giovaniazzi`,
+> enquanto o repositório está em `giovaniazzi35-sys`. Se um dia quiser deploy
+> automático a cada `git push`, basta conectar a conta `giovaniazzi35-sys` na
+> Vercel e importar o repositório por lá.
+
 ## Arquivos
 
 | Arquivo | O que é |
