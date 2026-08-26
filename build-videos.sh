@@ -12,18 +12,20 @@ FF="${FFMPEG_BIN:-ffmpeg}"
 OUT="videos"
 mkdir -p "$OUT"
 
-# "arquivo original|nome-de-saida"
+# "arquivo original|nome-de-saida|capa-em-segundos"
+# O 3º campo é opcional: se vazio, a capa usa 18% da duração do vídeo.
+# Use-o quando esse ponto cair em legenda, transição ou quadro sem conteúdo
+# — foi o caso de "vivian" (legenda) e "projeto-004" (transição em branco).
 ITEMS=(
-  "VD 001 - VIVIAN (STORY).mp4|vivian"
-  "copy_11DE4C0A-B670-4CD0-A9F9-7FA6918C8411.mov|projeto-002"
-  "copy_8B2CD546-721F-4085-80DD-586C186B90D1.mov|projeto-003"
-  "IMG_0903.MP4|projeto-004"
-  "IMG_1256.MOV|projeto-005"
+  "VD 001 - VIVIAN (STORY).mp4|vivian|3.3"
+  "copy_11DE4C0A-B670-4CD0-A9F9-7FA6918C8411.mov|projeto-002|"
+  "copy_8B2CD546-721F-4085-80DD-586C186B90D1.mov|projeto-003|"
+  "IMG_0903.MP4|projeto-004|1.5"
+  "IMG_1256.MOV|projeto-005|"
 )
 
 for item in "${ITEMS[@]}"; do
-  src="${item%%|*}"
-  name="${item##*|}"
+  IFS='|' read -r src name posterAt <<< "$item"
   [ -e "$src" ] || { echo "!! não encontrado: $src"; continue; }
 
   echo ">> $src  ->  $OUT/$name.mp4"
@@ -34,11 +36,13 @@ for item in "${ITEMS[@]}"; do
     -movflags +faststart \
     "$OUT/$name.mp4"
 
-  # capa: quadro a 18% da duração
-  dur=$("${FF%ffmpeg}ffprobe" -v error -show_entries format=duration \
-        -of default=noprint_wrappers=1:nokey=1 "$src")
-  at=$(awk -v d="$dur" 'BEGIN{printf "%.2f", d*0.18}')
-  "$FF" -y -loglevel error -ss "$at" -i "$src" -frames:v 1 \
+  # capa: no ponto definido acima, ou a 18% da duração por padrão
+  if [ -z "$posterAt" ]; then
+    dur=$("${FF%ffmpeg}ffprobe" -v error -show_entries format=duration \
+          -of default=noprint_wrappers=1:nokey=1 "$src")
+    posterAt=$(awk -v d="$dur" 'BEGIN{printf "%.2f", d*0.18}')
+  fi
+  "$FF" -y -loglevel error -ss "$posterAt" -i "$src" -frames:v 1 \
     -vf "scale=-2:1280:flags=lanczos" -q:v 4 "$OUT/$name.jpg"
 done
 

@@ -51,32 +51,32 @@ const HERO_BG = { src: 'videos/hero.mp4', poster: 'videos/projeto-002.jpg' };
 const VIDEOS = [
   {
     type: 'file',
-    src: 'videos/vivian.mp4',
-    poster: 'videos/vivian.jpg',
-    title: 'Vivian',                 // ► edite
-    category: 'Filmes',              // ► edite
-    desc: 'Retrato em movimento.',   // ► edite
+    src: 'videos/projeto-002.mp4',
+    poster: 'videos/projeto-002.jpg',
+    title: 'Projeto 001',            // ► edite
+    category: 'Marcas',
+    desc: '',
     featured: true,
     order: 1
   },
   {
     type: 'file',
-    src: 'videos/projeto-002.mp4',
-    poster: 'videos/projeto-002.jpg',
+    src: 'videos/projeto-003.mp4',
+    poster: 'videos/projeto-003.jpg',
     title: 'Projeto 002',            // ► edite
-    category: 'Marcas',
+    category: 'Eventos',
     desc: '',
-    featured: true,
+    featured: false,
     order: 2
   },
   {
     type: 'file',
-    src: 'videos/projeto-003.mp4',
-    poster: 'videos/projeto-003.jpg',
+    src: 'videos/vivian.mp4',
+    poster: 'videos/vivian.jpg',
     title: 'Projeto 003',            // ► edite
-    category: 'Eventos',
+    category: 'Filmes',              // ► edite
     desc: '',
-    featured: false,
+    featured: true,
     order: 3
   },
   {
