@@ -113,8 +113,8 @@ Cada vídeo é um bloco na lista `VIDEOS`:
 ```js
 {
   type: 'file',                  // 'file' | 'youtube' | 'vimeo'
-  src: 'meu-video.mp4',          // arquivo na pasta, OU o ID do YouTube/Vimeo
-  poster: '',                    // opcional: imagem de capa própria
+  src: 'videos/meu-video.mp4',   // gerado por build-videos.sh
+  poster: 'videos/meu-video.jpg', // idem — obrigatório para type:'file'
   title: 'Nome do projeto',
   category: 'Filmes',            // precisa existir em CATEGORIAS
   desc: 'Uma linha de descrição',
@@ -123,25 +123,46 @@ Cada vídeo é um bloco na lista `VIDEOS`:
 }
 ```
 
-**Adicionar um vídeo novo:** copie o arquivo para a pasta e acrescente um bloco à lista.
+> ⚠️ Para `type: 'file'`, o campo `poster` é obrigatório na prática — sem ele
+> o card fica sem imagem (quebrado). Só é opcional para `type: 'youtube'`
+> (usa a miniatura do próprio YouTube automaticamente).
+
+**Adicionar um vídeo novo:** coloque o arquivo original na pasta, registre-o
+em `build-videos.sh`, rode `bash build-videos.sh` (gera o `.mp4` e o `.jpg`
+dentro de `videos/`) e só então acrescente o bloco correspondente aqui.
 
 **YouTube / Vimeo:** use só o ID, não a URL inteira.
 `youtube.com/watch?v=ABC123` → `{ type: 'youtube', src: 'ABC123', ... }`
 
 ### 4. Capa dos vídeos
 
-Sem `poster`, a capa é um quadro do próprio vídeo, tirado a 18% da duração
-(evita o primeiro quadro, quase sempre escuro). Para mudar esse ponto:
+Cada capa é um arquivo `.jpg` gerado pelo `build-videos.sh` (não é calculada
+na hora — os cards carregam só a imagem, o vídeo baixa apenas ao clicar).
+Por padrão, o quadro escolhido fica a 18% da duração do vídeo, para evitar
+o primeiro quadro (quase sempre escuro ou em transição).
 
-```js
-const POSTER_AT = 0.18;   // 0.5 = metade do vídeo
+Se a capa cair numa legenda, transição ou quadro sem conteúdo — como
+aconteceu com dois vídeos aqui — defina um ponto manual no 3º campo de
+`ITEMS` dentro do `build-videos.sh`:
+
+```bash
+ITEMS=(
+  "meu-video.mp4|projeto-006|4.2"   # capa no segundo 4.2
+  "outro-video.mp4|projeto-007|"    # vazio = usa os 18% automáticos
+)
 ```
+
+Depois rode `bash build-videos.sh` de novo para regenerar.
 
 ### 5. Vídeo de fundo do hero
 
 ```js
-const HERO_BG = { type: 'file', src: 'copy_11DE4C0A-....mov' };
+const HERO_BG = { src: 'videos/hero.mp4', poster: 'videos/projeto-002.jpg' };
 ```
+
+`hero.mp4` é gerado pelo `build-videos.sh` a partir do vídeo escolhido como
+fundo (20s, sem áudio, mais leve). Para trocar qual vídeo vira o fundo,
+edite a seção "Fundo do hero" no fim do `build-videos.sh`.
 
 ### 6. Textos da página
 
@@ -172,11 +193,8 @@ sempre preservada por inteiro.
 
 ## Ainda pendente
 
-- [ ] Renomear os projetos 002–005 (hoje com nomes provisórios)
+- [ ] Renomear os projetos (hoje "Projeto 001" a "Projeto 005", provisórios)
 - [ ] Revisar as categorias atribuídas a cada vídeo (foram um chute inicial)
 - [ ] Revisar os textos de "Sobre o processo" — são genéricos, escritos
       sem conhecer o seu processo real. Troque pelas suas palavras.
-- [ ] Definir um e-mail de contato, se quiser exibi-lo
-
-> ⚠️ Os textos do site falam em "resposta no mesmo dia". Ajuste ou remova
-> essa frase no `index.html` se não for o seu compromisso real.
+- [ ] Definir um e-mail de contato, se quiser exibi-lo no rodapé
