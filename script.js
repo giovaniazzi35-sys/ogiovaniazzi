@@ -98,6 +98,16 @@ const VIDEOS = [
     desc: '',
     featured: false,
     order: 5
+  },
+  {
+    type: 'file',
+    src: 'videos/papilon.mp4',
+    poster: 'videos/papilon.jpg',
+    title: 'Papilon Car',             // ► edite
+    category: 'Marcas',
+    desc: '',
+    featured: false,
+    order: 6
   }
 ];
 

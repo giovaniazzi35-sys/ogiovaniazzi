@@ -22,6 +22,7 @@ ITEMS=(
   "copy_8B2CD546-721F-4085-80DD-586C186B90D1.mov|projeto-003|"
   "IMG_0903.MP4|projeto-004|1.5"
   "IMG_1256.MOV|projeto-005|"
+  "NOVO PAPILON.MOV|papilon|13"
 )
 
 for item in "${ITEMS[@]}"; do
