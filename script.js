@@ -626,14 +626,8 @@ const waURL = (msg) => CONTATO.whatsapp + (msg ? '?text=' + encodeURIComponent(m
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   quick.addEventListener('click', () => setOpen(false));
 
-  // aparece depois que o visitante começa a rolar
-  const onScroll = () => {
-    const show = window.scrollY > window.innerHeight * 0.6;
-    dock.classList.toggle('is-visible', show);
-    if (!show) setOpen(false);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // sempre visível, desde o topo da página
+  dock.classList.add('is-visible');
 })();
 
 /* ============================ NAV / SCROLL / MOBILE ============================ */
