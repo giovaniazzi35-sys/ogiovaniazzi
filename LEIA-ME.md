@@ -1,4 +1,4 @@
-# ogiovaniazzi — guia de edição
+# avirafilms — guia de edição
 
 ## Como abrir o site
 
@@ -33,7 +33,8 @@ O volume escolhido fica lembrado entre visitas.
 
 ## Publicar uma atualização
 
-O site está no ar em **https://ogiovaniazzi.vercel.app**
+O site está no ar em **https://avirafilms.vercel.app**
+(o endereço antigo, https://ogiovaniazzi.vercel.app, continua funcionando também)
 
 Depois de editar qualquer coisa, rode na pasta do projeto:
 
