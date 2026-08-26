@@ -103,7 +103,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/papilon.mp4',
     poster: 'videos/papilon.jpg',
-    title: 'Papilon Car',             // ► edite
+    title: 'Projeto 006',             // ► edite
     category: 'Marcas',
     desc: '',
     featured: false,
