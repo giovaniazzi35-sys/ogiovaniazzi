@@ -1,5 +1,5 @@
 /* =====================================================================
-   avirafilms — configuração e comportamento
+   Giovanni Asi Videomaker — configuração e comportamento
    ---------------------------------------------------------------------
    ► TUDO O QUE VOCÊ PRECISA EDITAR ESTÁ NESTE BLOCO DE CONFIG ◄
    ===================================================================== */
@@ -747,3 +747,25 @@ document.getElementById('year').textContent = new Date().getFullYear();
 renderGrid('Todos');
 renderFeatured();
 observeReveals();
+
+
+/* ============================ INTRO (motion curto) ============================ */
+(function intro() {
+  const el = document.getElementById('intro');
+  if (!el) return;
+  if (document.documentElement.classList.contains('no-intro') || semAnimacao) { el.remove(); return; }
+  document.body.style.overflow = 'hidden';
+  let done = false;
+  const end = () => {
+    if (done) return; done = true;
+    document.body.style.overflow = '';
+    try { sessionStorage.setItem('intro', '1'); } catch (e) {}
+    setTimeout(() => el.remove(), 1000);
+  };
+  setTimeout(end, 3500);
+  const skip = document.getElementById('introSkip');
+  if (skip) skip.addEventListener('click', () => {
+    el.style.animation = 'introOut .6s cubic-bezier(.77,0,.18,1) forwards';
+    end();
+  });
+})();
