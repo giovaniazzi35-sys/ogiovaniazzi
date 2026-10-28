@@ -1,4 +1,4 @@
-# Giovanni Asi Videomaker — guia de edição
+# Giovani Azzi Videomaker — guia de edição
 
 ## Como abrir o site
 

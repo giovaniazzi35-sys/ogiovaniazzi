@@ -1,5 +1,5 @@
 /* =====================================================================
-   Giovanni Asi Videomaker — configuração e comportamento
+   Giovani Azzi Videomaker — configuração e comportamento
    ---------------------------------------------------------------------
    ► TUDO O QUE VOCÊ PRECISA EDITAR ESTÁ NESTE BLOCO DE CONFIG ◄
    ===================================================================== */
