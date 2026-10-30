@@ -760,8 +760,8 @@ img, video { display: block; max-width: 100%; }
 }
 .hphone:hover { box-shadow: 0 0 0 1px #5a5a5a, 0 50px 80px -24px rgba(0,0,0,.9), 0 0 80px -6px rgba(201,168,117,.45); }
 .hphone--c { --x: 0; --y: 0; --r: 0deg; --sc: 1.12; z-index: 3; }
-.hphone--l { --x: calc(var(--w) * -.92); --y: 5%; --r: -7deg; --sc: .88; z-index: 2; filter: brightness(.8); }
-.hphone--r { --x: calc(var(--w) * .92); --y: -4%; --r: 7deg; --sc: .88; z-index: 2; filter: brightness(.8); }
+.hphone--l { --x: calc(var(--w) * -.8); --y: 5%; --r: -7deg; --sc: .88; z-index: 2; filter: brightness(.8); }
+.hphone--r { --x: calc(var(--w) * .8); --y: -4%; --r: 7deg; --sc: .88; z-index: 2; filter: brightness(.8); }
 .hphone:hover { filter: brightness(1); }
 .hero-go .hphone { animation: phoneIn 1.5s var(--ease) both, phoneFloat 7s ease-in-out 1.6s infinite alternate; }
 .hero-go .hphone--c { animation-delay: .2s, 1.8s; }
