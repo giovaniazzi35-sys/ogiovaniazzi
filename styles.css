@@ -908,3 +908,16 @@ img, video { display: block; max-width: 100%; }
 }
 
 .modal__cat:empty, .card__cat:empty { display: none; }
+
+/* primeira dobra enxuta: nome, uma frase e um botão */
+.hero__tagline { margin-bottom: var(--s3); }
+@media (min-width: 901px) {
+  .hero { padding-top: 84px; padding-bottom: 48px; }
+  .hero__title { font-size: clamp(88px, min(14vw, 30vh), 230px); }
+  .hero__tagline { font-size: clamp(20px, 2.4vw, 32px); }
+}
+@media (max-width: 900px) {
+  .hero__stage { height: clamp(270px, 74vw, 400px); }
+  .hero__title { font-size: clamp(84px, 24vw, 140px); }
+  .hero__tagline { margin-bottom: var(--s2); }
+}
