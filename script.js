@@ -1,5 +1,5 @@
 /* =====================================================================
-   Giovani Azzi Videomaker — configuração e comportamento
+   Azzi Assessoria MKT — configuração e comportamento
    ---------------------------------------------------------------------
    ► TUDO O QUE VOCÊ PRECISA EDITAR ESTÁ NESTE BLOCO DE CONFIG ◄
    ===================================================================== */
@@ -33,7 +33,9 @@ const WHATSAPP_ACOES = [
 /* -------- CATEGORIAS (edite / adicione / remova livremente) -------- */
 const CATEGORIAS = ['Todos', 'Filmes', 'Eventos', 'Marcas', 'Conteúdo'];
 
-/* -------- VÍDEO DE FUNDO DO HERO (loop, sem som) -------- */
+/* -------- CASES NA PRIMEIRA TELA (3 celulares: esquerda, centro, direita) --------
+   Use o 'src' de vídeos já listados em VIDEOS abaixo. */
+const HERO_CASES = ['videos/papilon.mp4', 'videos/vivian.mp4', 'videos/projeto-004.mp4'];
 const HERO_BG = { src: 'videos/hero.mp4', poster: 'videos/projeto-002.jpg' };
 
 /* -------- LISTA DE VÍDEOS --------
@@ -742,6 +744,35 @@ function observeReveals() {
   upd();
 })();
 
+/* ============================ HERO: CASES EM CELULARES ============================ */
+(function initHeroCases() {
+  const stage = document.getElementById('heroStage');
+  if (!stage) return;
+  const pos = ['l', 'c', 'r'];
+  HERO_CASES.slice(0, 3).forEach((src, i) => {
+    const v = VIDEOS.find(x => x.src === src);
+    if (!v) return;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'hphone hphone--' + pos[i];
+    b.setAttribute('aria-label', 'Assistir ' + v.title);
+    b.innerHTML = `<video muted loop playsinline preload="metadata" poster="${posterURL(v)}"></video><span class="hphone__tag">${v.title}</span>`;
+    const vid = b.querySelector('video');
+    vid.muted = true;
+    vid.src = enc(v.src);
+    let onScreen = true;
+    const play = () => { if (onScreen && !document.hidden) vid.play().catch(() => {}); };
+    vid.addEventListener('canplay', play, { once: true });
+    document.addEventListener('visibilitychange', play);
+    document.addEventListener('pointerdown', play, { once: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) play(); else vid.pause(); }, { threshold: 0.1 }).observe(b);
+    }
+    b.addEventListener('click', () => openModal(v));
+    stage.appendChild(b);
+  });
+})();
+
 /* ============================ INIT ============================ */
 document.getElementById('year').textContent = new Date().getFullYear();
 renderGrid('Todos');
@@ -749,23 +780,25 @@ renderFeatured();
 observeReveals();
 
 
-/* ============================ INTRO (motion curto) ============================ */
+/* ============================ INTRO (motion) ============================ */
 (function intro() {
   const el = document.getElementById('intro');
-  if (!el) return;
-  if (document.documentElement.classList.contains('no-intro') || semAnimacao) { el.remove(); return; }
+  const go = () => document.documentElement.classList.add('hero-go');
+  if (!el) { go(); return; }
+  if (document.documentElement.classList.contains('no-intro') || semAnimacao) { el.remove(); go(); return; }
   document.body.style.overflow = 'hidden';
   let done = false;
   const end = () => {
     if (done) return; done = true;
     document.body.style.overflow = '';
+    go();
     try { sessionStorage.setItem('intro', '1'); } catch (e) {}
-    setTimeout(() => el.remove(), 1000);
+    setTimeout(() => el.remove(), 1200);
   };
-  setTimeout(end, 3500);
+  setTimeout(end, 7400);
   const skip = document.getElementById('introSkip');
   if (skip) skip.addEventListener('click', () => {
-    el.style.animation = 'introOut .6s cubic-bezier(.77,0,.18,1) forwards';
+    el.style.animation = 'introOut .7s cubic-bezier(.77,0,.18,1) forwards';
     end();
   });
 })();

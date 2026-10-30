@@ -1,4 +1,4 @@
-# Giovani Azzi Videomaker — guia de edição
+# Azzi Assessoria MKT — guia de edição
 
 ## Como abrir o site
 

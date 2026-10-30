@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Giovani Azzi — Videomaker</title>
-  <meta name="description" content="Giovani Azzi, videomaker. Vídeos que mudam o rumo e o posicionamento da sua marca: direção, produção e edição audiovisual." />
+  <title>Azzi Assessoria MKT — Vídeos que posicionam sua marca</title>
+  <meta name="description" content="Azzi Assessoria MKT. Vídeos que mudam o rumo e o posicionamento da sua marca: direção, produção e edição audiovisual." />
 
   <!-- Meta Pixel Code -->
   <script>
@@ -29,26 +29,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-size='40' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-size='40' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'%3EA%3C/text%3E%3C/svg%3E" />
   <script>try{if(sessionStorage.getItem("intro"))document.documentElement.classList.add("no-intro")}catch(e){}</script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ============================ INTRO (motion curto) ============================ -->
+  <!-- ============================ INTRO (motion) ============================ -->
   <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__dust"></div>
     <div class="intro__bar intro__bar--t"></div>
     <div class="intro__bar intro__bar--b"></div>
-    <p class="intro__beat intro__beat--1">Sua marca está sendo vista <em>como deveria</em>?</p>
-    <p class="intro__beat intro__beat--2">Eu mudo o <em>rumo</em> dela.</p>
-    <p class="intro__name">Giovani Azzi <span>Videomaker</span></p>
+    <div class="intro__line"></div>
+    <p class="intro__beat intro__beat--1"><span style="--i:0">Sua</span> <span style="--i:1">marca</span> <span style="--i:2">está</span> <span style="--i:3">sendo</span> <span style="--i:4">vista</span> <span class="a" style="--i:5">como</span> <span class="a" style="--i:6">deveria?</span></p>
+    <p class="intro__beat intro__beat--2"><span style="--i:0">O</span> <span class="a" style="--i:1">rumo</span> <span style="--i:2">dela</span> <span style="--i:3">pode</span> <span style="--i:4">mudar.</span></p>
+    <div class="intro__name">
+      <div class="intro__logo"><span style="--i:0">A</span><span style="--i:1">Z</span><span style="--i:2">Z</span><span style="--i:3">I</span></div>
+      <div class="intro__sub">Assessoria MKT</div>
+      <div class="intro__rule"></div>
+    </div>
+    <div class="intro__progress"></div>
     <button class="intro__skip" id="introSkip" type="button">Pular</button>
   </div>
 
   <!-- ============================ NAVBAR ============================ -->
   <header class="nav" id="nav">
     <div class="nav__inner">
-      <a href="#hero" class="nav__brand brand" data-scroll>Giovani Azzi<small>Videomaker</small></a>
+      <a href="#hero" class="nav__brand brand" data-scroll>Azzi<small>Assessoria MKT</small></a>
 
       <nav class="nav__menu" aria-label="Navegação principal">
         <a href="#projetos" data-scroll>Projetos</a>
@@ -74,23 +81,29 @@
 
   <!-- ============================ HERO ============================ -->
   <section class="hero" id="hero">
-    <!-- Vídeo de fundo em loop (definido em script.js: HERO_BG) -->
     <div class="hero__bg">
-      <video id="heroVideo" class="hero__video" muted loop playsinline preload="auto"></video>
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
       <div class="hero__overlay"></div>
     </div>
 
-    <div class="hero__content reveal">
-      <p class="hero__eyebrow">Posicionamento de marca</p>
-      <h1 class="hero__title">Giovani Azzi<span>Videomaker</span></h1>
-      <p class="hero__tagline">Eu mudo o rumo da sua marca com vídeo.</p>
-      <p class="hero__sub">
-        A imagem que as pessoas veem define quanto sua empresa vale.
-        Crio vídeos que fazem a sua marca ser percebida — e lembrada — do jeito certo.
-      </p>
-      <div class="hero__actions">
-        <a href="#" class="btn btn--light js-wa">Solicitar orçamento</a>
+    <div class="hero__grid">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Marketing e posicionamento de marca</p>
+        <h1 class="hero__title">Azzi<span>Assessoria MKT</span></h1>
+        <p class="hero__tagline">O rumo da sua marca muda com vídeo.</p>
+        <p class="hero__sub">
+          A imagem que as pessoas veem define quanto sua empresa vale.
+          Criamos vídeos que fazem a sua marca ser percebida — e lembrada — do jeito certo.
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--light js-wa">Solicitar orçamento</a>
+          <a href="#projetos" class="btn btn--ghost" data-scroll>Ver cases</a>
+        </div>
       </div>
+
+      <!-- Cases em vídeo, em celulares (gerados em script.js: HERO_CASES) -->
+      <div class="hero__stage" id="heroStage" aria-label="Cases em vídeo"></div>
     </div>
 
     <div class="hero__scroll" aria-hidden="true">
@@ -98,6 +111,14 @@
       <div class="hero__scroll-line"></div>
     </div>
   </section>
+
+  <!-- faixa em movimento -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <div class="marquee__group"><span>Posicionamento de marca</span><i></i><span>Vídeos que vendem</span><i></i><span>Conteúdo estratégico</span><i></i><span>Presença digital</span><i></i><span>Cases reais</span><i></i></div>
+      <div class="marquee__group"><span>Posicionamento de marca</span><i></i><span>Vídeos que vendem</span><i></i><span>Conteúdo estratégico</span><i></i><span>Presença digital</span><i></i><span>Cases reais</span><i></i></div>
+    </div>
+  </div>
 
   <!-- ============================ PROJETOS ============================ -->
   <section class="section section--light" id="projetos">
@@ -162,7 +183,7 @@
         <p class="section__desc">
           <!-- EDITE: troque por sua apresentação pessoal -->
           Você não precisa entender de cinema para ter um filme bem feito.
-          Precisa apenas contar o que quer registrar — o resto é comigo, em três etapas.
+          Precisa apenas contar o que quer registrar — o resto é com a Azzi, em três etapas.
         </p>
       </header>
 
@@ -208,11 +229,11 @@
     <div class="container cta__inner reveal">
       <h2 class="cta__title">Vamos criar algo que<br />vale a pena lembrar.</h2>
       <p class="cta__text">
-        Datas boas não voltam. Me chame agora e vamos combinar
+        Datas boas não voltam. Chame a gente agora e vamos combinar
         como registrar a sua do jeito certo.
       </p>
       <div class="cta__actions">
-        <a href="#" class="btn btn--light btn--lg" id="ctaWhatsapp">Fale com o Giovani</a>
+        <a href="#" class="btn btn--light btn--lg" id="ctaWhatsapp">Falar com a Azzi</a>
         <a href="#" class="btn btn--ghost btn--lg js-wa" data-msg="orcamento">Pedir orçamento</a>
       </div>
       <p class="cta__note">Sem compromisso — a conversa começa com você contando a ideia.</p>
@@ -222,13 +243,13 @@
   <!-- ============================ RODAPÉ ============================ -->
   <footer class="footer">
     <div class="container footer__inner">
-      <a href="#hero" class="footer__brand brand" data-scroll>Giovani Azzi<small>Videomaker</small></a>
+      <a href="#hero" class="footer__brand brand" data-scroll>Azzi<small>Assessoria MKT</small></a>
       <nav class="footer__links" aria-label="Redes e contato">
         <a href="#" id="footInstagram" target="_blank" rel="noopener">Instagram</a>
         <a href="#" id="footWhatsapp" target="_blank" rel="noopener">WhatsApp</a>
         <a href="#" id="footEmail">E-mail</a>
       </nav>
-      <p class="footer__copy">© <span id="year"></span> Giovani Azzi Videomaker</p>
+      <p class="footer__copy">© <span id="year"></span> Azzi Assessoria MKT</p>
     </div>
   </footer>
 
