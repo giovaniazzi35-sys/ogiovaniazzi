@@ -59,8 +59,8 @@
 
       <nav class="nav__menu" aria-label="Navegação principal">
         <a href="#projetos" data-scroll>Projetos</a>
-        <a href="#destaque" data-scroll>Em Destaque</a>
         <a href="#sobre" data-scroll>Sobre</a>
+        <a href="#clientes" data-scroll>Clientes</a>
         <a href="#contato" data-scroll>Contato</a>
       </nav>
 
@@ -74,7 +74,6 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#hero" data-scroll>Início</a>
     <a href="#projetos" data-scroll>Projetos</a>
-    <a href="#destaque" data-scroll>Em Destaque</a>
     <a href="#sobre" data-scroll>Sobre</a>
     <a href="#contato" data-scroll>Contato</a>
   </div>
@@ -89,7 +88,7 @@
 
     <div class="hero__grid">
       <div class="hero__content">
-        <p class="hero__eyebrow">Marketing e posicionamento de marca</p>
+        <p class="hero__eyebrow">Posicionamento estratégico da sua marca</p>
         <h1 class="hero__title">Azzi<span>Assessoria MKT</span></h1>
         <p class="hero__tagline">O rumo da sua marca muda com vídeo.</p>
         <p class="hero__sub">
@@ -120,6 +119,22 @@
     </div>
   </div>
 
+  <!-- ============================ RESULTADOS ============================ -->
+  <section class="results section--dark" id="resultados">
+    <div class="container results__inner">
+      <div class="results__stat reveal">
+        <p class="results__label">Já investimos</p>
+        <p class="results__num"><small>R$</small><b data-count="3">3</b><em>milhões</em></p>
+        <p class="results__caption">em tráfego pago</p>
+      </div>
+      <ul class="results__pillars">
+        <li class="reveal" data-delay="100"><span>01</span><h3>Posicionamento estratégico da sua marca</h3><p>Antes de gravar ou anunciar, definimos como a sua marca precisa ser vista.</p></li>
+        <li class="reveal" data-delay="220"><span>02</span><h3>Vídeos que comunicam</h3><p>Cases como os que você vê aqui: imagem forte, pensada para o que a sua marca quer dizer.</p></li>
+        <li class="reveal" data-delay="340"><span>03</span><h3>Tráfego pago com direção</h3><p>Investimento em anúncios guiado por estratégia, para o vídeo chegar a quem importa.</p></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ============================ PROJETOS ============================ -->
   <section class="section section--light" id="projetos">
     <div class="container">
@@ -130,9 +145,6 @@
           Veja o tipo de resultado que o seu projeto pode ter.
         </p>
       </header>
-
-      <!-- Filtros de categoria (gerados a partir das categorias em script.js) -->
-      <div class="filters reveal" id="filters"></div>
 
       <!-- Grade de vídeos (gerada a partir de VIDEOS em script.js) -->
       <div class="grid" id="projectGrid"></div>
@@ -152,26 +164,6 @@
         Histórias não precisam apenas ser <em>contadas</em>.<br />
         Elas podem ser <em>sentidas</em>.
       </p>
-    </div>
-  </section>
-
-  <!-- ============================ EM DESTAQUE ============================ -->
-  <section class="section section--dark" id="destaque">
-    <div class="container">
-      <header class="section__head reveal">
-        <h2 class="section__title section__title--light" data-split>Em Destaque</h2>
-        <p class="section__desc section__desc--light">
-          Assista em tela cheia. É assim que o seu filme vai ser visto por quem importa.
-        </p>
-      </header>
-
-      <!-- Vídeos em destaque (gerados a partir de VIDEOS com featured:true) -->
-      <div class="featured" id="featuredList"></div>
-
-      <div class="inline-cta inline-cta--dark reveal">
-        <p class="inline-cta__text">Pronto para gravar o seu?</p>
-        <a href="#" class="btn btn--light js-wa">Falar sobre meu projeto</a>
-      </div>
     </div>
   </section>
 
@@ -221,6 +213,16 @@
         <p class="inline-cta__text">Vamos começar pela conversa.</p>
         <a href="#" class="btn btn--dark js-wa">Chamar no WhatsApp</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================ DEPOIMENTOS ============================ -->
+  <section class="section section--light" id="clientes">
+    <div class="container">
+      <header class="section__head reveal">
+        <h2 class="section__title" data-split>O que dizem nossos clientes</h2>
+      </header>
+      <div class="quotes" id="quotes"></div>
     </div>
   </section>
 

@@ -33,6 +33,15 @@ const WHATSAPP_ACOES = [
 /* -------- CATEGORIAS (edite / adicione / remova livremente) -------- */
 const CATEGORIAS = ['Todos', 'Filmes', 'Eventos', 'Marcas', 'Conteúdo'];
 
+/* -------- DEPOIMENTOS DE CLIENTES --------
+   Preencha com o texto REAL de cada cliente. Só aparece na página quem tiver 'texto'.
+   Se nenhum estiver preenchido, a seção inteira fica escondida. */
+const DEPOIMENTOS = [
+  { nome: '', empresa: '', texto: '' },   // ► cliente 1
+  { nome: '', empresa: '', texto: '' },   // ► cliente 2
+  { nome: '', empresa: '', texto: '' }    // ► cliente 3
+];
+
 /* -------- CASES NA PRIMEIRA TELA (3 celulares: esquerda, centro, direita) --------
    Use o 'src' de vídeos já listados em VIDEOS abaixo. */
 const HERO_CASES = ['videos/papilon.mp4', 'videos/vivian.mp4', 'videos/projeto-004.mp4'];
@@ -55,7 +64,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/projeto-002.mp4',
     poster: 'videos/projeto-002.jpg',
-    title: 'Projeto 001',            // ► edite
+    title: '',
     category: 'Marcas',
     desc: '',
     featured: true,
@@ -65,7 +74,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/projeto-003.mp4',
     poster: 'videos/projeto-003.jpg',
-    title: 'Projeto 002',            // ► edite
+    title: '',
     category: 'Eventos',
     desc: '',
     featured: false,
@@ -75,7 +84,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/vivian.mp4',
     poster: 'videos/vivian.jpg',
-    title: 'Projeto 003',            // ► edite
+    title: '',
     category: 'Filmes',              // ► edite
     desc: '',
     featured: true,
@@ -85,7 +94,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/projeto-004.mp4',
     poster: 'videos/projeto-004.jpg',
-    title: 'Projeto 004',            // ► edite
+    title: '',
     category: 'Conteúdo',
     desc: '',
     featured: false,
@@ -95,7 +104,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/projeto-005.mp4',
     poster: 'videos/projeto-005.jpg',
-    title: 'Projeto 005',            // ► edite
+    title: '',
     category: 'Conteúdo',
     desc: '',
     featured: false,
@@ -105,7 +114,7 @@ const VIDEOS = [
     type: 'file',
     src: 'videos/papilon.mp4',
     poster: 'videos/papilon.jpg',
-    title: 'Projeto 006',             // ► edite
+    title: '',
     category: 'Marcas',
     desc: '',
     featured: false,
@@ -424,7 +433,7 @@ function makeCard(v) {
   media.className = 'card__media';
   const img = document.createElement('img');
   img.src = posterURL(v);
-  img.alt = v.title;
+  img.alt = v.category || 'Case em vídeo';
   img.loading = 'lazy';
   media.appendChild(img);
 
@@ -433,7 +442,7 @@ function makeCard(v) {
     <div class="card__play">${IC.play}</div>
     <div class="card__info">
       <div class="card__cat">${v.category || ''}</div>
-      <div class="card__title">${v.title}</div>
+      ${v.title ? `<div class="card__title">${v.title}</div>` : ''}
       ${v.desc ? `<div class="card__meta">${v.desc}</div>` : ''}
     </div>`;
   card.prepend(media);
@@ -449,6 +458,7 @@ function makeCard(v) {
 function renderGrid(filter = 'Todos') {
   grid.innerHTML = '';
   ordered()
+    .filter(v => !HERO_CASES.includes(v.src))          // quem já aparece na primeira tela não se repete
     .filter(v => filter === 'Todos' || v.category === filter)
     .forEach((v, i) => {
       const card = makeCard(v);
@@ -460,7 +470,7 @@ function renderGrid(filter = 'Todos') {
 
 /* ============================ FILTROS ============================ */
 const filtersEl = document.getElementById('filters');
-CATEGORIAS.forEach((cat, i) => {
+if (filtersEl) CATEGORIAS.forEach((cat, i) => {
   const b = document.createElement('button');
   b.textContent = cat;
   if (i === 0) b.classList.add('is-active');
@@ -476,6 +486,7 @@ CATEGORIAS.forEach((cat, i) => {
 /* ============================ EM DESTAQUE ============================ */
 const featuredList = document.getElementById('featuredList');
 function renderFeatured() {
+  if (!featuredList) return;
   ordered().filter(v => v.featured).forEach(v => {
     const item = document.createElement('div');
     item.className = 'featured__item reveal';
@@ -485,7 +496,7 @@ function renderFeatured() {
     frame.tabIndex = 0;
 
     const img = document.createElement('img');
-    img.src = posterURL(v); img.alt = v.title; img.loading = 'lazy';
+    img.src = posterURL(v); img.alt = v.category || 'Case em vídeo'; img.loading = 'lazy';
     frame.appendChild(img);
     frame.insertAdjacentHTML('beforeend', `<div class="card__grad"></div><div class="card__play">${IC.play}</div>`);
 
@@ -497,7 +508,7 @@ function renderFeatured() {
 
     const cap = document.createElement('div');
     cap.className = 'featured__caption';
-    cap.innerHTML = `<h3>${v.title}</h3><span class="cat">${v.category || ''}</span>${v.desc ? `<p>${v.desc}</p>` : ''}`;
+    cap.innerHTML = `<h3>${v.title || v.category || ''}</h3>${v.title && v.category ? `<span class="cat">${v.category}</span>` : ''}${v.desc ? `<p>${v.desc}</p>` : ''}`;
 
     item.appendChild(frame);
     item.appendChild(cap);
@@ -755,8 +766,8 @@ function observeReveals() {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'hphone hphone--' + pos[i];
-    b.setAttribute('aria-label', 'Assistir ' + v.title);
-    b.innerHTML = `<video muted loop playsinline preload="metadata" poster="${posterURL(v)}"></video><span class="hphone__tag">${v.title}</span>`;
+    b.setAttribute('aria-label', 'Assistir case' + (v.category ? ' de ' + v.category : ''));
+    b.innerHTML = `<video muted loop playsinline preload="metadata" poster="${posterURL(v)}"></video><span class="hphone__tag">${v.title || v.category || ""}</span>`;
     const vid = b.querySelector('video');
     vid.muted = true;
     vid.src = enc(v.src);
@@ -771,6 +782,42 @@ function observeReveals() {
     b.addEventListener('click', () => openModal(v));
     stage.appendChild(b);
   });
+})();
+
+/* ============================ DEPOIMENTOS ============================ */
+(function renderQuotes() {
+  const sec = document.getElementById('clientes');
+  const list = document.getElementById('quotes');
+  if (!sec || !list) return;
+  const itens = DEPOIMENTOS.filter(d => d.texto && d.texto.trim());
+  if (!itens.length) { sec.remove(); document.querySelectorAll('a[href="#clientes"]').forEach(l => l.remove()); return; }
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  list.innerHTML = itens.map((d, i) => `
+    <figure class="quote reveal" data-delay="${i * 120}">
+      <svg class="quote__mark" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V14C0 6 4.5 1.3 12 0l1.4 3C9.5 4.2 7.6 6.6 7.4 10H13v14H0zm18 0V14c0-8 4.5-12.7 12-14l1.4 3c-3.9 1.2-5.8 3.6-6 7H31v14H18z"/></svg>
+      <blockquote>${esc(d.texto)}</blockquote>
+      <figcaption><strong>${esc(d.nome || 'Cliente')}</strong>${d.empresa ? `<span>${esc(d.empresa)}</span>` : ''}</figcaption>
+    </figure>`).join('');
+})();
+
+/* contador do número em destaque */
+(function countUp() {
+  const el = document.querySelector('[data-count]');
+  if (!el) return;
+  const alvo = parseFloat(el.dataset.count);
+  if (semAnimacao || !('IntersectionObserver' in window)) { el.textContent = alvo; return; }
+  el.textContent = '0';
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
+    obs.disconnect();
+    const t0 = performance.now(), dur = 1800;
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(alvo * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, { threshold: 0.5 }).observe(el);
 })();
 
 /* ============================ INIT ============================ */
