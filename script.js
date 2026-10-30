@@ -13,7 +13,7 @@ const CONTATO = {
 };
 
 /* Mensagem padrão ao abrir o WhatsApp (deixe '' para abrir vazio) */
-const WHATSAPP_MSG = 'Olá! Vi seu portfólio e gostaria de falar sobre um projeto.';
+const WHATSAPP_MSG = 'Olá, quero vender mais com a Azzi assessoria!';
 
 /* -------- MENSAGENS RÁPIDAS do botão flutuante --------
    Aparecem acima do botão do WhatsApp. Edite, adicione ou remova à vontade.
@@ -435,7 +435,7 @@ function makeCard(v) {
   media.className = 'card__media';
   const img = document.createElement('img');
   img.src = posterURL(v);
-  img.alt = v.category || 'Case em vídeo';
+  img.alt = 'Case em vídeo';
   img.loading = 'lazy';
   media.appendChild(img);
 
@@ -443,7 +443,6 @@ function makeCard(v) {
     <div class="card__grad"></div>
     <div class="card__play">${IC.play}</div>
     <div class="card__info">
-      <div class="card__cat">${v.category || ''}</div>
       ${v.title ? `<div class="card__title">${v.title}</div>` : ''}
       ${v.desc ? `<div class="card__meta">${v.desc}</div>` : ''}
     </div>`;
@@ -554,7 +553,7 @@ function openModal(v) {
     modalPlayer.appendChild(iframe);
   }
 
-  modalCat.textContent = v.category || '';
+  modalCat.textContent = '';
   modalTitle.textContent = v.title || '';
   modalDesc.textContent = v.desc || '';
 
@@ -622,37 +621,15 @@ const waURL = (msg) => CONTATO.whatsapp + (msg ? '?text=' + encodeURIComponent(m
   }
 })();
 
-/* ---- botão flutuante + mensagens rápidas ---- */
+/* ---- botão flutuante: abre direto o WhatsApp com a mensagem padrão ---- */
 (function initFloatingWa() {
   const dock = document.getElementById('waDock');
   const btn  = document.getElementById('waFloat');
-  const quick = document.getElementById('waQuick');
-  if (!dock || !btn || !quick) return;
-
-  // monta as mensagens rápidas
-  WHATSAPP_ACOES.forEach((a, i) => {
-    const link = document.createElement('a');
-    link.className = 'wa-quick__item';
-    link.href = waURL(a.msg);
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.setAttribute('role', 'menuitem');
-    link.style.transitionDelay = (i * 45) + 'ms';
-    link.innerHTML = `<span class="wa-quick__ico" aria-hidden="true">${a.icone || '💬'}</span><span>${a.label}</span>`;
-    quick.appendChild(link);
-  });
-
-  const setOpen = (open) => {
-    dock.classList.toggle('is-open', open);
-    btn.setAttribute('aria-expanded', open);
-  };
-  btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!dock.classList.contains('is-open')); });
-  document.addEventListener('click', (e) => { if (!dock.contains(e.target)) setOpen(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-  quick.addEventListener('click', () => setOpen(false));
-
-  // sempre visível, desde o topo da página
-  dock.classList.add('is-visible');
+  if (!dock || !btn) return;
+  btn.href = waURL(WHATSAPP_MSG);
+  btn.target = '_blank';
+  btn.rel = 'noopener';
+  dock.classList.add('is-visible');   // sempre visível, desde o topo da página
 })();
 
 /* ============================ NAV / SCROLL / MOBILE ============================ */
@@ -768,8 +745,8 @@ function observeReveals() {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'hphone hphone--' + pos[i];
-    b.setAttribute('aria-label', 'Assistir case' + (v.category ? ' de ' + v.category : ''));
-    b.innerHTML = `<video muted loop playsinline preload="metadata" poster="${posterURL(v)}"></video><span class="hphone__tag">${v.title || v.category || ""}</span>`;
+    b.setAttribute('aria-label', 'Assistir case em vídeo');
+    b.innerHTML = `<video muted loop playsinline preload="metadata" poster="${posterURL(v)}"></video>`;
     const vid = b.querySelector('video');
     vid.muted = true;
     vid.src = enc(v.src);

@@ -906,3 +906,5 @@ img, video { display: block; max-width: 100%; }
   .hero__chips { margin-bottom: var(--s3); }
   .hero__agency { margin-top: 1.1em; }
 }
+
+.modal__cat:empty, .card__cat:empty { display: none; }
