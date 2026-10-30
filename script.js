@@ -22,6 +22,8 @@ const WHATSAPP_MSG = 'Olá! Vi seu portfólio e gostaria de falar sobre um proje
 const WHATSAPP_ACOES = [
   { id: 'orcamento', icone: '💰', label: 'Solicitar orçamento',
     msg: 'Olá! Gostaria de solicitar um orçamento para um vídeo.' },
+  { id: 'trafego',   icone: '🚀', label: 'Tráfego pago e marketing',
+    msg: 'Olá! Quero saber como a Azzi pode estruturar o marketing e o tráfego pago da minha marca.' },
   { id: 'contratar', icone: '🎬', label: 'Quero contratar um serviço',
     msg: 'Olá! Quero contratar seu serviço de produção de vídeo. Podemos conversar?' },
   { id: 'data',      icone: '📅', label: 'Consultar uma data',
