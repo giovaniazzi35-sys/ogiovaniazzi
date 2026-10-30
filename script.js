@@ -806,25 +806,25 @@ renderFeatured();
 observeReveals();
 
 
-/* ============================ INTRO (motion) ============================ */
+/* ============================ CARREGAMENTO (rápido) ============================ */
 (function intro() {
   const el = document.getElementById('intro');
   const go = () => document.documentElement.classList.add('hero-go');
   if (!el) { go(); return; }
-  if (document.documentElement.classList.contains('no-intro') || semAnimacao) { el.remove(); go(); return; }
+  if (semAnimacao) { el.remove(); go(); return; }
   document.body.style.overflow = 'hidden';
   let done = false;
   const end = () => {
     if (done) return; done = true;
+    el.classList.add('is-out');
     document.body.style.overflow = '';
-    go();
-    try { sessionStorage.setItem('intro', '1'); } catch (e) {}
-    setTimeout(() => el.remove(), 1200);
+    setTimeout(go, 250);
+    setTimeout(() => el.remove(), 900);
   };
-  setTimeout(end, 7400);
-  const skip = document.getElementById('introSkip');
-  if (skip) skip.addEventListener('click', () => {
-    el.style.animation = 'introOut .7s cubic-bezier(.77,0,.18,1) forwards';
-    end();
+  const minimo = new Promise(r => setTimeout(r, 1100));
+  const carregou = new Promise(r => {
+    if (document.readyState === 'complete') r(); else window.addEventListener('load', r, { once: true });
   });
+  Promise.all([minimo, carregou]).then(end);
+  setTimeout(end, 3000);   // nunca prende o visitante
 })();
