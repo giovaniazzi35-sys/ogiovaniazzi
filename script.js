@@ -74,8 +74,8 @@ const VIDEOS = [
   },
   {
     type: 'file',
-    src: 'videos/projeto-003.mp4',
-    poster: 'videos/projeto-003.jpg',
+    src: 'videos/rot-2.mp4',
+    poster: 'videos/rot-2.jpg',
     title: '',
     category: 'Eventos',
     desc: '',

@@ -19,7 +19,7 @@ mkdir -p "$OUT"
 ITEMS=(
   "VD 001 - VIVIAN (STORY).mp4|vivian|3.3"
   "copy_11DE4C0A-B670-4CD0-A9F9-7FA6918C8411.mov|projeto-002|"
-  "copy_8B2CD546-721F-4085-80DD-586C186B90D1.mov|projeto-003|"
+  "ROT 2 (1).mp4|rot-2|0.05"
   "IMG_0903.MP4|projeto-004|1.5"
   "IMG_1256.MOV|projeto-005|"
   "NOVO PAPILON.MOV|papilon|13"
